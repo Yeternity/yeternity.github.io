@@ -1,6 +1,103 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Git自动转换换行符</title>
+    <url>/2020/02/08/Git%E8%87%AA%E5%8A%A8%E8%BD%AC%E6%8D%A2%E6%8D%A2%E8%A1%8C%E7%AC%A6/</url>
+    <content><![CDATA[<p><strong>写在前面的话：</strong> 决定换行符统一使用 <code>Unix(\n)</code>，并且在本地都使用了 Unix 的换行符，可是从 GitHub 上 clone 下来后，文件内容的换行符都变成了 <code>Windows(\r\n)</code> </p>
+<a id="more"></a>
+
+<p><strong>环境：</strong></p>
+<blockquote>
+<p><strong>OS:</strong> Windows 10<br><strong>Git:</strong> git version 2.25.0.windows.1</p>
+</blockquote>
+<h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>在各操作系统下，文本文件所使用的换行符是不一样的。UNIX/Linux 使用的是 <code>0x0A(LF)</code>，早期的 Mac OS 使用的是 <code>0x0D(CR)</code> ，后来的 OS X 在更换内核后与 UNIX 保持一致了。但 DOS/Windows 一直使用 <code>0x0D0A(CRLF)</code> 作为换行符。</p>
+<p>为了跨平台协作，我们一般统一使用 Unix 格式的换行符。因此 Git 为了让 Windows 用户提交到 Git 上的换行符保持统一，提供了一个 <code>core.autocrlf</code> 自动转换换行符的功能。</p>
+<h2 id="core-autocrlf"><a href="#core-autocrlf" class="headerlink" title="core.autocrlf"></a>core.autocrlf</h2><h3 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h3><p><code>core.autocrlf</code> 用于 <code>CRLF</code> 与 <code>LF</code> 之间的转换</p>
+<p>它有以下三个属性：</p>
+<table>
+<thead>
+<tr>
+<th align="center">属性</th>
+<th align="center">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><code>true</code>（ Git 安装时默认为该属性）</td>
+<td align="center">提交时，把 CRLF 转换成 LF；签出时把 LF 转换成 CRLF</td>
+</tr>
+<tr>
+<td align="center"><code>input</code></td>
+<td align="center">提交时，把 CRLF 转换成 LF；签出时不转换</td>
+</tr>
+<tr>
+<td align="center"><code>false</code></td>
+<td align="center">不进行转换</td>
+</tr>
+</tbody></table>
+<h3 id="工作原理"><a href="#工作原理" class="headerlink" title="工作原理"></a>工作原理</h3><p>设置 <code>core.autocrlf = true</code> 后：  </p>
+<p>检出时（ git checkout ），git 会把文本文件的换行符转化为 CRLF（只转化纯 LF 的文件）  </p>
+<p>提交时（ git commit ），把暂存区的内容（也就是我们对工作区做的改动）转化为 LF 然后放入版本库。  </p>
+<p>转化暂存区的内容时（ git add ），如果发现工作区文件里面存在 LF 换行符，LF 会被转化成 CRLF，并给出条警告：”LF will be replaced by CRLF”</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">warning: LF will be replaced by CRLF <span class="keyword">in</span> &lt;file-name&gt;.</span><br><span class="line">The file will have its original line endings <span class="keyword">in</span> your working directory.</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>简单来说，设置 <code>core.autocrlf = true</code> 后，我们工作区的文件都应该用 CRLF 来换行。如果改动文件时引入了 LF，或者设置 <code>core.autocrlf</code> 之前，工作区已经有 LF 换行符。提交改动时，Git 会警告你哪些文件不是纯 CRLF 文件，但 Git 不会擅自修改工作区的那些文件，而是对暂存区（我们对工作区的改动）进行修改。也因此，当我们进行 git add 的操作时，只要 Git 发现改动的内容里有 LF 换行符，就还会出现这个警告。</p>
+</blockquote>
+<h3 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h3><p>我想保证即使是Windows，本地工作空间也是Unix的换行符，现在 Windows 上许多编辑器都是识别这个换行符的。</p>
+<p>所以不需要的功能是，检出（ git checkout ）时的转换，因此使用 <code>input</code> 属性</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git config --global core.autocrlf input</span><br></pre></td></tr></table></figure>
+
+<h3 id="查看配置"><a href="#查看配置" class="headerlink" title="查看配置"></a>查看配置</h3><p>使用以下命令，可在显示的条目最后看到刚配置的信息</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git config --list</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="core-safecrlf"><a href="#core-safecrlf" class="headerlink" title="core.safecrlf"></a>core.safecrlf</h2><h3 id="介绍-1"><a href="#介绍-1" class="headerlink" title="介绍"></a>介绍</h3><p><code>core.safecrlf</code> 可以检测文件中是否同时混有两种换行符</p>
+<p>它有以下三个属性：</p>
+<table>
+<thead>
+<tr>
+<th align="center">属性</th>
+<th align="center">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><code>true</code></td>
+<td align="center">在提交时检查，如果发现混用则拒绝提交</td>
+</tr>
+<tr>
+<td align="center"><code>warn</code></td>
+<td align="center">在提交时检查并警告</td>
+</tr>
+<tr>
+<td align="center"><code>false</code></td>
+<td align="center">不做任何检查</td>
+</tr>
+</tbody></table>
+<h3 id="使用-1"><a href="#使用-1" class="headerlink" title="使用"></a>使用</h3><p>由于已经使用了 <code>core.autocrlf = input</code>，所以即使混用了，提交到 Git 上的还是统一的 <code>LF</code>。但是我还是选择了 <code>true</code> ，因为想保证本地的文件也不存在混用。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git config --global core.safecrlf <span class="literal">true</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><s>听说 Git 有个 Bug ：文件编码是 UTF-8 并且包含中文文字，文件提交时，自动转换功能会失效。但是我测试了一下，并没有这个问题。难道是新版 Git 修复了？（git version 2.25.0.windows.1）</s></p>
+</blockquote>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ol>
+<li><p><a href="https://www.cnblogs.com/zjoch/p/5400251.html" target="_blank" rel="noopener">GitHub 第一坑：换行符自动转换</a></p>
+</li>
+<li><p><a href="https://blog.csdn.net/lxw1844912514/article/details/100028562" target="_blank" rel="noopener">Git 换行符检查 CRLF 与 LF</a></p>
+</li>
+<li><p><a href="https://www.zhihu.com/question/50862500" target="_blank" rel="noopener">git如何避免”warning: LF will be replaced by CRLF“提示？——Andy Deng的回答</a></p>
+</li>
+<li><p><a href="https://www.cnblogs.com/flying_bat/archive/2013/09/16/3324769.html" target="_blank" rel="noopener">Git中的AutoCRLF与SafeCRLF换行符问题</a></p>
+</li>
+</ol>
+]]></content>
+      <categories>
+        <category>Git</category>
+      </categories>
+      <tags>
+        <tag>Git</tag>
+        <tag>换行符</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Java实现批量将文件从GBK改成UTF-8</title>
     <url>/2020/02/08/Java%E5%AE%9E%E7%8E%B0%E6%89%B9%E9%87%8F%E5%B0%86%E6%96%87%E4%BB%B6%E4%BB%8EGBK%E6%94%B9%E6%88%90UTF-8/</url>
     <content><![CDATA[<p><strong>写在前面的话：</strong>碰到一个编码格式为GBK的项目，要改成UTF-8，而且里边缩进全用了Tab，换行是Windows(\r\n)。因此写了这个批量处理的代码，可以将一个目录内的指定后缀(如.java)的文件，从GBK（原编码格式）转换成UTF-8（目标编码格式），同时将Tab转换成4个空格，换行符改成Unix(\n)</p>

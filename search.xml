@@ -64,6 +64,13 @@
 </li>
 </ol>
 ]]></content>
+      <categories>
+        <category>Java</category>
+      </categories>
+      <tags>
+        <tag>Java IO</tag>
+        <tag>编码格式</tag>
+      </tags>
   </entry>
   <entry>
     <title>多台电脑共同维护Hexo博客</title>

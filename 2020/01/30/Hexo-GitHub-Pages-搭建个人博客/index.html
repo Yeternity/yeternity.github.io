@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    hostname: new URL('http://yoursite.com').hostname,
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.7.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    comments: {"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}
+  };
+</script>
+
+  <meta name="description" content="写在前面的话： 记录是个好习惯，在经历了无数次“遗忘的坑”后，还是乖乖的去记录。不过我有强迫症，非要自己试着用这方法搭建一个，顺便记录一下。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hexo + GitHub Pages 搭建个人博客">
+<meta property="og:url" content="http://yoursite.com/2020/01/30/Hexo-GitHub-Pages-%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/index.html">
+<meta property="og:site_name" content="Yeternity的博客">
+<meta property="og:description" content="写在前面的话： 记录是个好习惯，在经历了无数次“遗忘的坑”后，还是乖乖的去记录。不过我有强迫症，非要自己试着用这方法搭建一个，顺便记录一下。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-01-30T07:24:07.000Z">
+<meta property="article:modified_time" content="2020-02-02T06:07:01.000Z">
+<meta property="article:author" content="Yeternity">
+<meta property="article:tag" content="Hexo">
+<meta property="article:tag" content="Blog">
+<meta property="article:tag" content="GitHub">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://yoursite.com/2020/01/30/Hexo-GitHub-Pages-%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>Hexo + GitHub Pages 搭建个人博客 | Yeternity的博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Yeternity的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">过程就是奖励</p>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="搜索..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/01/30/Hexo-GitHub-Pages-%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/sleepy.jpg">
+      <meta itemprop="name" content="Yeternity">
+      <meta itemprop="description" content="Stay Hungry.<br>Stay Foolish.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Yeternity的博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Hexo + GitHub Pages 搭建个人博客
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-01-30 15:24:07" itemprop="dateCreated datePublished" datetime="2020-01-30T15:24:07+08:00">2020-01-30</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-02-02 14:07:01" itemprop="dateModified" datetime="2020-02-02T14:07:01+08:00">2020-02-02</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Hexo/" itemprop="url" rel="index">
+                    <span itemprop="name">Hexo</span>
+                  </a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>3k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>3 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p><strong>写在前面的话：</strong> 记录是个好习惯，在经历了无数次“遗忘的坑”后，还是乖乖的去记录。不过我有强迫症，非要自己试着用这方法搭建一个，顺便记录一下。</p>
+<a id="more"></a>
+<blockquote>
+<p>本文在 <strong>Windows 10</strong> 上操作</p>
+</blockquote>
+<h2 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h2><h3 id="Git"><a href="#Git" class="headerlink" title="Git"></a>Git</h3><blockquote>
+<p><strong>Git</strong> 是一个开源的分布式版本控制系统  </p>
+</blockquote>
+<p><em>下载地址</em>：<a href="https://git-scm.com" target="_blank" rel="noopener">https://git-scm.com</a>  </p>
+<p>安装完成之后到桌面空白处单击鼠标右键，出现 <code>Git Bash Here</code> 选项</p>
+<p>打开Git Bash，查看版本（验证安装是否成功）</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git --version</span><br><span class="line">git version 2.25.0.windows.1</span><br></pre></td></tr></table></figure>
+
+<h3 id="Node-js"><a href="#Node-js" class="headerlink" title="Node.js"></a>Node.js</h3><blockquote>
+<ul>
+<li><strong>Node.js</strong> 是一个基于 Google V8 引擎的 JavaScript 环境，它支持在后端运行 JavaScript  </li>
+<li><strong>NPM</strong> 是默认与 Node.js 一起安装的包管理工具</li>
+</ul>
+</blockquote>
+<p><em>下载地址</em>：<a href="https://nodejs.org/en" target="_blank" rel="noopener">https://nodejs.org/en</a></p>
+<p>安装完成后，在Git Bash中输入以下命令</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ node -v</span><br><span class="line">v12.14.1</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ npm -v</span><br><span class="line">6.13.4</span><br></pre></td></tr></table></figure>
+
+<h3 id="Hexo"><a href="#Hexo" class="headerlink" title="Hexo"></a>Hexo</h3><blockquote>
+<ul>
+<li><strong>Hexo</strong> 是一个快速、简洁且高效的博客框架。<strong>Hexo</strong> 使用 Markdown（或其他渲染引擎）解析文章，在几秒内，即可利用靓丽的主题生成静态网页。</li>
+<li>类似于jekyll、Octopress、WordPress</li>
+</ul>
+</blockquote>
+<p>官网：<a href="https://hexo.io/zh-cn" target="_blank" rel="noopener">https://hexo.io/zh-cn</a></p>
+<p><em>安装Hexo：</em>  打开Git Bash，输入以下命令</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm install -g hexo-cli</span><br></pre></td></tr></table></figure>
+
+<p>安装完成后，查看版本</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">$ hexo version</span><br><span class="line">hexo: 4.2.0</span><br><span class="line">hexo-cli: 3.1.0</span><br><span class="line">os: Windows_NT 10.0.17763 win32 x64</span><br><span class="line">node: 12.14.1</span><br><span class="line">v8: 7.7.299.13-node.16</span><br><span class="line">uv: 1.33.1</span><br><span class="line">zlib: 1.2.11</span><br><span class="line">brotli: 1.0.7</span><br><span class="line">ares: 1.15.0</span><br><span class="line">modules: 72</span><br><span class="line">nghttp2: 1.40.0</span><br><span class="line">napi: 5</span><br><span class="line">llhttp: 2.0.1</span><br><span class="line">http_parser: 2.8.0</span><br><span class="line">openssl: 1.1.1d</span><br><span class="line">cldr: 35.1</span><br><span class="line">icu: 64.2</span><br><span class="line">tz: 2019c</span><br><span class="line">unicode: 12.1</span><br></pre></td></tr></table></figure>
+
+<h3 id="Hexo、Node-js-与-Git、GitHub、GitHub-Pages"><a href="#Hexo、Node-js-与-Git、GitHub、GitHub-Pages" class="headerlink" title="Hexo、Node.js 与 Git、GitHub、GitHub Pages"></a>Hexo、Node.js 与 Git、GitHub、GitHub Pages</h3><blockquote>
+<p><strong>Hexo</strong>是一个基于<strong>Node.js</strong>的静态博客程序，可以方便的生成 <u><i>静态网页</i></u>，然后使用<strong>Git</strong>托管在<strong>GitHub</strong>上。</p>
+<p><strong>GitHub Pages</strong>是<strong>GitHub</strong>的一项很实用的功能，它可以让我们将<strong>GitHub</strong>里面的 <u><i>静态网页</i></u> 的代码在线上展示出来，可以用来做项目展示和个人博客的载体。</p>
+</blockquote>
+<p><u><i>静态网页：静态网页是标准的HTML文件，它的文件扩展名是.htm或.html，可以包含文本、图像、声音、FLASH动画、客户端脚本和ActiveX控件及JAVA小程序等。</i></u></p>
+<h2 id="建站"><a href="#建站" class="headerlink" title="建站"></a>建站</h2><h3 id="建立GitHub仓库"><a href="#建立GitHub仓库" class="headerlink" title="建立GitHub仓库"></a>建立GitHub仓库</h3><p>在GitHub上新建仓库，仓库名为<code>yeternity.github.io</code>（yeternity改成你的GitHub用户名）</p>
+<h3 id="使用Hexo本地建站"><a href="#使用Hexo本地建站" class="headerlink" title="使用Hexo本地建站"></a>使用Hexo本地建站</h3><ol>
+<li><p>首先新建一个文件夹，用来存放Hexo生成的文件，我使用的是<code>D:\Git\Hexo</code> </p>
+</li>
+<li><p>打开Git Bash</p>
+</li>
+<li><p>进入<code>D:\Git\Hexo</code> </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">cd</span> D:\\Git\\Hexo</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Hexo初始化(hexo init 后为刚建立的GitHub仓库名)</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo init yeternity.github.io</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>进入<code>yeternity.github.io</code>文件夹</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">cd</span> yeternity.github.io</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>安装package.json中的dependencies</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm install</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<p><code>yeternity.github.io</code>文件夹目录如下（有些可能没有，在之后的操作中会出现）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">.</span><br><span class="line">├── _config.yml  # Hexo网站配置文件</span><br><span class="line">├── package.json # 应用程序的信息</span><br><span class="line">├── db.json # 数据库信息</span><br><span class="line">├── node_modules # 依赖模块及安装的插件</span><br><span class="line">├── public # Hexo生成的静态网页</span><br><span class="line">├── .deploy_git # public中的文件（部署到GitHub)</span><br><span class="line">├── scaffolds # .md文件模板</span><br><span class="line">├── source # 资源文件</span><br><span class="line">|   ├── _drafts # 草稿，不会被发布</span><br><span class="line">|   └── _posts # 发布的文章</span><br><span class="line">└── themes # Hexo主题</span><br></pre></td></tr></table></figure>
+
+<ol start="7">
+<li><p>启动服务器</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server(简写 hexo s)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>打开浏览器，输入<a href="http://localhost:4000" target="_blank" rel="noopener">http://localhost:4000</a></p>
+</li>
+</ol>
+<h2 id="部署"><a href="#部署" class="headerlink" title="部署"></a>部署</h2><h3 id="配置GitHub"><a href="#配置GitHub" class="headerlink" title="配置GitHub"></a>配置GitHub</h3><ul>
+<li><p>配置个人信息(改成你自己的GitHub用户名和邮箱)</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git config --global user.name <span class="string">"Yeternity"</span></span><br><span class="line">$ git config --global user.email <span class="string">"980888907@qq.com"</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>配置SSH keys</p>
+</li>
+</ul>
+<blockquote>
+<p>使用 SSH 协议可以连接远程服务器和服务并向它们验证。 利用 SSH 密钥可以连接 GitHub，而无需在每次访问时提供用户名或密码。</p>
+</blockquote>
+<ol>
+<li><p>输入以下命令，并一路回车（修改邮箱）</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ssh-keygen -t rsa -C <span class="string">"980888907@qq.com"</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>打开<code>C:\Users\yeternity\.ssh\id_rsa.pub</code>，此文件里面内容为刚才生成的密钥，准确的复制这个文件的内容，粘贴到<a href="https://github.com/settings/ssh" target="_blank" rel="noopener">https://github.com/settings/ssh</a>的New SSH key中</p>
+</li>
+<li><p>验证，输入以下命令；看到<code>Hi Yeternity! You&#39;ve successfully authenticated, but GitHub does not provide shell access.</code>说明成功</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ssh -T git@github.com</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<h3 id="配置Hexo"><a href="#配置Hexo" class="headerlink" title="配置Hexo"></a>配置Hexo</h3><p>在<code>_config.yml</code>文件中，找到<code>Deployment</code>，然后按照如下修改，yeternity改成你的用户名</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Deployment</span></span><br><span class="line"><span class="comment">## Docs: https://hexo.io/docs/deployment.html</span></span><br><span class="line"><span class="attr">deploy:</span></span><br><span class="line">  <span class="attr">type:</span> <span class="string">git</span></span><br><span class="line">  <span class="attr">repo:</span> <span class="string">git@github.com:yeternity/yeternity.github.io.git</span></span><br><span class="line">  <span class="attr">branch:</span> <span class="string">master</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="提交"><a href="#提交" class="headerlink" title="提交"></a>提交</h3><ol>
+<li><p>删除旧的 public 文件和db.json（不用每次都clean，更改不起作用时用）</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo clean</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>生成新的 public 文件和db.json（clean后全部重新生成，没有clean只生成改动的）</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate(简写 hexo g)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>安装git扩展</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm install hexo-deployer-git --save</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>部署到GitHub</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy(简写 hexo d)</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<p>最后可以查看效果<br><a href="https://yeternity.github.io" target="_blank" rel="noopener">https://yeternity.github.io</a></p>
+<p><em>PS(postscript)</em>:<br>怎么避免 .md 文件被解析？</p>
+<blockquote>
+<p>Hexo原理就是hexo在执行hexo generate时会在本地先把博客生成的一套静态站点放到public文件夹中，在执行hexo deploy时将其复制到.deploy_git文件夹中。Github的版本库通常建议同时附上README.md说明文件，但是hexo默认情况下会把所有md文件解析成html文件，所以即使你在线生成了 README.md，它也会在你下一次部署时被删去。怎么解决呢？  </p>
+</blockquote>
+<p>在执行hexo deploy前把在本地写好的README.md文件复制到public文件夹中，再去执行hexo deploy。<br>执行了hexo clean后，需要重新操作以上步骤。</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ol>
+<li><a href="https://www.jianshu.com/p/0af76a76b279" target="_blank" rel="noopener">Hexo + GitHub Pages 搭建博客的教程</a></li>
+<li><a href="https://blog.csdn.net/wsmrzx/article/details/81475866" target="_blank" rel="noopener">Hexo系列(一) 搭建博客网站</a></li>
+<li><a href="https://hexo.io/zh-cn/docs/" target="_blank" rel="noopener">Hexo官方说明文档</a></li>
+</ol>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Hexo/" rel="tag"># Hexo</a>
+              <a href="/tags/Blog/" rel="tag"># Blog</a>
+              <a href="/tags/GitHub/" rel="tag"># GitHub</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/01/30/hello-world/" rel="prev" title="Hello World">
+      <i class="fa fa-chevron-left"></i> Hello World
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/02/02/Hexo%E4%B9%8B%E4%B8%AA%E6%80%A7%E5%8C%96/" rel="next" title="Hexo之个性化">
+      Hexo之个性化 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#环境"><span class="nav-number">1.</span> <span class="nav-text">环境</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Git"><span class="nav-number">1.1.</span> <span class="nav-text">Git</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Node-js"><span class="nav-number">1.2.</span> <span class="nav-text">Node.js</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Hexo"><span class="nav-number">1.3.</span> <span class="nav-text">Hexo</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Hexo、Node-js-与-Git、GitHub、GitHub-Pages"><span class="nav-number">1.4.</span> <span class="nav-text">Hexo、Node.js 与 Git、GitHub、GitHub Pages</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#建站"><span class="nav-number">2.</span> <span class="nav-text">建站</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#建立GitHub仓库"><span class="nav-number">2.1.</span> <span class="nav-text">建立GitHub仓库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用Hexo本地建站"><span class="nav-number">2.2.</span> <span class="nav-text">使用Hexo本地建站</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#部署"><span class="nav-number">3.</span> <span class="nav-text">部署</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#配置GitHub"><span class="nav-number">3.1.</span> <span class="nav-text">配置GitHub</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置Hexo"><span class="nav-number">3.2.</span> <span class="nav-text">配置Hexo</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#提交"><span class="nav-number">3.3.</span> <span class="nav-text">提交</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">4.</span> <span class="nav-text">参考</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Yeternity"
+      src="/images/sleepy.jpg">
+  <p class="site-author-name" itemprop="name">Yeternity</p>
+  <div class="site-description" itemprop="description">Stay Hungry.<br>Stay Foolish.</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">5</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/yeternity" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;yeternity" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://blog.csdn.net/yeternity" title="CSDN → https:&#x2F;&#x2F;blog.csdn.net&#x2F;yeternity" rel="noopener" target="_blank"><i class="fa fa-fw fa-codiepie"></i>CSDN</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Yeternity</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    <span title="站点总字数">13k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">12 分钟</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.2.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.7.0
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

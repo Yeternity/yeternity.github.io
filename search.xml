@@ -1,6 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Eclipse使用前的配置</title>
+    <url>/2020/02/09/Eclipse%E4%BD%BF%E7%94%A8%E5%89%8D%E7%9A%84%E9%85%8D%E7%BD%AE/</url>
+    <content><![CDATA[<p><strong>写在前面的话：</strong> Eclipse每次新建工作空间，原来的配置都会消失，需要重新配置或者导入以前的配置。今天就记录一下Eclipse开发的一些常用配置。</p>
+<a id="more"></a>
+
+<p><strong>环境：</strong></p>
+<blockquote>
+<p><strong>OS:</strong> Windows 10, v.10.0, x86_64 / win32<br><strong>Java version:</strong> 1.8.0_241<br><strong>IDE:</strong> Eclipse IDE for RCP and RAP Developers<br>&ensp;&ensp;&ensp;&ensp; Version: 2019-12 (4.14.0)<br>&ensp;&ensp;&ensp;&ensp; Build id: 20191212-1212</p>
+</blockquote>
+<h2 id="编码环境设置"><a href="#编码环境设置" class="headerlink" title="编码环境设置"></a>编码环境设置</h2><h3 id="编码格式UTF-8"><a href="#编码格式UTF-8" class="headerlink" title="编码格式UTF-8"></a>编码格式UTF-8</h3><p>编码格式统一，可以防止乱码。</p>
+<ol>
+<li><p>Eclipse默认编码格式改成 <code>UTF-8</code>，适用于没有指定编码格式的文件<br><code>Windows-&gt;Preferences-&gt;General-&gt;Workspace-&gt;Text file encoding-&gt;Other-&gt;UTF-8</code></p>
+</li>
+<li><p>更改有指定编码格式的文件（如Java Properties）<br><code>Windows-&gt;Preferences-&gt;General –&gt; Content Types –&gt; Text –&gt; Java Properties File</code><br>将 <code>Default encoding</code> 改为 <code>UTF-8</code> ，点击 <code>Update</code> 即可</p>
+</li>
+</ol>
+<h3 id="换行符使用Unix"><a href="#换行符使用Unix" class="headerlink" title="换行符使用Unix"></a>换行符使用Unix</h3><p>换行符统一，有利于跨平台协作，不会发生 Git 记录被毁，文件内容不换行等问题。</p>
+<ol>
+<li><p>设置新建文件为Unix换行符<br><code>Windows-&gt;Preferences-&gt;General-&gt;Workspace-&gt;New text file line delimiter-&gt;Other-&gt;Unix</code></p>
+</li>
+<li><p>将Windows换行符的文件改成Unix<br><code>File-&gt;Convert Line Delimiters To-&gt;Unix</code></p>
+</li>
+</ol>
+<blockquote>
+<p>Windows 的记事本只能识别 “\r\n”(Windows)，因此当换行符为 “\n”（Unix) 时，记事本不会换行（直到 Windows 10 的记事本才支持Unix格式的换行符）</p>
+</blockquote>
+<h3 id="Tab替换为4个空格"><a href="#Tab替换为4个空格" class="headerlink" title="Tab替换为4个空格"></a>Tab替换为4个空格</h3><p>由于不同编辑器对于 <code>Tab</code>，可能会用不同长度的空白字符表示，因此使用Tab缩进，可能引起协作问题。一般我们使用4个空格来表示缩进。</p>
+<ol>
+<li><p><code>Window-&gt;Preferences-&gt;General-&gt;Editors-&gt;Text Editors-&gt;insert spaces for tabs</code></p>
+</li>
+<li><p><code>Window-&gt;Preferences-&gt;Java-&gt;Code Style -&gt;Formatter</code>，点击New Profile新建样式</p>
+</li>
+<li><p>在弹出页面中选择 <code>Indentation-&gt;Tab policy-&gt;Space only</code>，设置 <code>Indentation size：4</code></p>
+</li>
+</ol>
+<h3 id="显示空白字符"><a href="#显示空白字符" class="headerlink" title="显示空白字符"></a>显示空白字符</h3><p>这个功能可以让我们看到Tab、Space、换行符等空白字符，可以让我们更清楚文件内容</p>
+<p><code>Window-&gt;Preferences-&gt;General-&gt;Editors-&gt;Text Editors-&gt;Show whitespace characters</code></p>
+<h2 id="代码自动提示"><a href="#代码自动提示" class="headerlink" title="代码自动提示"></a>代码自动提示</h2><p><code>Window -&gt; Preferences -&gt; Java -&gt; Editor -&gt; Content Assist -&gt; Auto Activation</code></p>
+<p>Auto activation delay:  100<br>Auto activation trigger for Java: .abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ</p>
+<h2 id="字体类型和大小"><a href="#字体类型和大小" class="headerlink" title="字体类型和大小"></a>字体类型和大小</h2><p><code>Window -&gt; Preferences -&gt; General -&gt; Appearance -&gt; Colors and Fonts-&gt;Basic-&gt;Text Font</code></p>
+<p>一般选择 <code>Courier New</code> 字体</p>
+<h2 id="保存设置"><a href="#保存设置" class="headerlink" title="保存设置"></a>保存设置</h2><p>导出<br><code>File-&gt;Export-&gt;General-&gt;Preferences</code></p>
+<p>导入<br><code>File-&gt;Import-&gt;General-&gt;Preferences</code></p>
+]]></content>
+      <categories>
+        <category>Eclipse</category>
+      </categories>
+      <tags>
+        <tag>Eclipse</tag>
+        <tag>Eclipse配置</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Git自动转换换行符</title>
     <url>/2020/02/08/Git%E8%87%AA%E5%8A%A8%E8%BD%AC%E6%8D%A2%E6%8D%A2%E8%A1%8C%E7%AC%A6/</url>
     <content><![CDATA[<p><strong>写在前面的话：</strong> 决定换行符统一使用 <code>Unix(\n)</code>，并且在本地都使用了 Unix 的换行符，可是从 GitHub 上 clone 下来后，文件内容的换行符都变成了 <code>Windows(\r\n)</code> </p>

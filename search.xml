@@ -718,7 +718,10 @@
 <blockquote>
 <p>Hexo原理就是hexo在执行hexo generate时会在本地先把博客生成的一套静态站点放到public文件夹中，在执行hexo deploy时将其复制到.deploy_git文件夹中。Github的版本库通常建议同时附上README.md说明文件，但是hexo默认情况下会把所有md文件解析成html文件，所以即使你在线生成了 README.md，它也会在你下一次部署时被删去。怎么解决呢？  </p>
 </blockquote>
-<p>在执行hexo deploy前把在本地写好的README.md文件复制到public文件夹中，再去执行hexo deploy。<br>执行了hexo clean后，需要重新操作以上步骤。</p>
+<p>在 Hexo 目录下的 <code>source</code> 根目录下添加一个 <code>README.md</code> 文件，修改 Hexo 配置文件 _<code>config.yml</code>，将 <code>skip_render</code> 参数的值设置为</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">skip_render:</span> <span class="string">README.md</span></span><br></pre></td></tr></table></figure>
+
+
 <h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ol>
 <li><a href="https://www.jianshu.com/p/0af76a76b279" target="_blank" rel="noopener">Hexo + GitHub Pages 搭建博客的教程</a></li>
 <li><a href="https://blog.csdn.net/wsmrzx/article/details/81475866" target="_blank" rel="noopener">Hexo系列(一) 搭建博客网站</a></li>

@@ -42,7 +42,7 @@
 <p>Auto activation delay:  100<br>Auto activation trigger for Java: .abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ</p>
 <h2 id="字体类型和大小"><a href="#字体类型和大小" class="headerlink" title="字体类型和大小"></a>字体类型和大小</h2><p><code>Window -&gt; Preferences -&gt; General -&gt; Appearance -&gt; Colors and Fonts-&gt;Basic-&gt;Text Font</code></p>
 <p>一般选择 <code>Courier New</code> 字体</p>
-<h2 id="保存动作"><a href="#保存动作" class="headerlink" title="保存动作"></a>保存动作</h2><p>保存的时候可以设置 Organize imports，这样就不需要总是 <code>Ctrl + Shift + O</code></p>
+<h2 id="保存动作"><a href="#保存动作" class="headerlink" title="保存动作"></a>保存动作</h2><p>保存的时候可以设置 Organize imports，这样就不需要总是 <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>O</kbd></p>
 <p><code>Window -&gt; Preferences -&gt; Java -&gt; Editor -&gt; Save Actions -&gt; Perform the selected actions on save</code><br>勾选第二项 Organize imports</p>
 <blockquote>
 <p>第一项Format source code有点坑，还是自己排版代码缩进和空行吧；第三项 Additional actions 没有用过，暂时保留意见</p>

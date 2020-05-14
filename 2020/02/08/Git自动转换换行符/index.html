@@ -54,7 +54,7 @@
 <meta property="og:description" content="写在前面的话： 决定换行符统一使用 Unix(\n)，并且在本地都使用了 Unix 的换行符，可是从 GitHub 上 clone 下来后，文件内容的换行符都变成了 Windows(\r\n)">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-02-08T14:41:01.000Z">
-<meta property="article:modified_time" content="2020-02-09T10:21:01.000Z">
+<meta property="article:modified_time" content="2020-05-14T18:00:00.000Z">
 <meta property="article:author" content="Yeternity">
 <meta property="article:tag" content="Git">
 <meta property="article:tag" content="换行符">
@@ -242,7 +242,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-02-09 18:21:01" itemprop="dateModified" datetime="2020-02-09T18:21:01+08:00">2020-02-09</time>
+                <time title="修改时间：2020-05-15 02:00:00" itemprop="dateModified" datetime="2020-05-15T02:00:00+08:00">2020-05-15</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -283,7 +283,7 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>2.6k</span>
+              <span>2.7k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -420,6 +420,10 @@
 <blockquote>
 <p><s>听说 Git 有个 Bug ：文件编码是 UTF-8 并且包含中文文字，文件提交时，自动转换功能会失效。但是我测试了一下，并没有这个问题。难道是新版 Git 修复了？（git version 2.25.0.windows.1）</s></p>
 </blockquote>
+<h2 id="Windows上的特殊情况"><a href="#Windows上的特殊情况" class="headerlink" title="Windows上的特殊情况"></a>Windows上的特殊情况</h2><p>在一个文件里假如<code>不存在换行符</code>（比如空文件，或只有一行），那么无论用哪种换行符格式保存，最终打开都是以Windows格式的换行符打开的</p>
+<blockquote>
+<p>以上这种情况，在设置了<code>core.autocrlf = input</code>和<code>core.safecrlf = true</code>，git add 就会因为要<code>转换换行符</code>而报错。</p>
+</blockquote>
 <h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ol>
 <li><p><a href="https://www.cnblogs.com/zjoch/p/5400251.html" target="_blank" rel="noopener">GitHub 第一坑：换行符自动转换</a></p>
 </li>
@@ -520,7 +524,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#背景"><span class="nav-number">1.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#core-autocrlf"><span class="nav-number">2.</span> <span class="nav-text">core.autocrlf</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#介绍"><span class="nav-number">2.1.</span> <span class="nav-text">介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#工作原理"><span class="nav-number">2.2.</span> <span class="nav-text">工作原理</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#core-autocrlf-true"><span class="nav-number">2.2.1.</span> <span class="nav-text">core.autocrlf &#x3D; true</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#core-autocrlf-input"><span class="nav-number">2.2.2.</span> <span class="nav-text">core.autocrlf &#x3D; input</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#core-autocrlf-false"><span class="nav-number">2.2.3.</span> <span class="nav-text">core.autocrlf &#x3D; false</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#比较"><span class="nav-number">2.2.4.</span> <span class="nav-text">比较</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用"><span class="nav-number">2.3.</span> <span class="nav-text">使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查看配置"><span class="nav-number">2.4.</span> <span class="nav-text">查看配置</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#core-safecrlf"><span class="nav-number">3.</span> <span class="nav-text">core.safecrlf</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#介绍-1"><span class="nav-number">3.1.</span> <span class="nav-text">介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用-1"><span class="nav-number">3.2.</span> <span class="nav-text">使用</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">4.</span> <span class="nav-text">参考</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#背景"><span class="nav-number">1.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#core-autocrlf"><span class="nav-number">2.</span> <span class="nav-text">core.autocrlf</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#介绍"><span class="nav-number">2.1.</span> <span class="nav-text">介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#工作原理"><span class="nav-number">2.2.</span> <span class="nav-text">工作原理</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#core-autocrlf-true"><span class="nav-number">2.2.1.</span> <span class="nav-text">core.autocrlf &#x3D; true</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#core-autocrlf-input"><span class="nav-number">2.2.2.</span> <span class="nav-text">core.autocrlf &#x3D; input</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#core-autocrlf-false"><span class="nav-number">2.2.3.</span> <span class="nav-text">core.autocrlf &#x3D; false</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#比较"><span class="nav-number">2.2.4.</span> <span class="nav-text">比较</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用"><span class="nav-number">2.3.</span> <span class="nav-text">使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查看配置"><span class="nav-number">2.4.</span> <span class="nav-text">查看配置</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#core-safecrlf"><span class="nav-number">3.</span> <span class="nav-text">core.safecrlf</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#介绍-1"><span class="nav-number">3.1.</span> <span class="nav-text">介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用-1"><span class="nav-number">3.2.</span> <span class="nav-text">使用</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Windows上的特殊情况"><span class="nav-number">4.</span> <span class="nav-text">Windows上的特殊情况</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">5.</span> <span class="nav-text">参考</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -591,7 +595,7 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-area-chart"></i>
     </span>
-    <span title="站点总字数">23k</span>
+    <span title="站点总字数">24k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>

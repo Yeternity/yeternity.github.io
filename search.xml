@@ -179,6 +179,10 @@
 <blockquote>
 <p><s>听说 Git 有个 Bug ：文件编码是 UTF-8 并且包含中文文字，文件提交时，自动转换功能会失效。但是我测试了一下，并没有这个问题。难道是新版 Git 修复了？（git version 2.25.0.windows.1）</s></p>
 </blockquote>
+<h2 id="Windows上的特殊情况"><a href="#Windows上的特殊情况" class="headerlink" title="Windows上的特殊情况"></a>Windows上的特殊情况</h2><p>在一个文件里假如<code>不存在换行符</code>（比如空文件，或只有一行），那么无论用哪种换行符格式保存，最终打开都是以Windows格式的换行符打开的</p>
+<blockquote>
+<p>以上这种情况，在设置了<code>core.autocrlf = input</code>和<code>core.safecrlf = true</code>，git add 就会因为要<code>转换换行符</code>而报错。</p>
+</blockquote>
 <h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ol>
 <li><p><a href="https://www.cnblogs.com/zjoch/p/5400251.html" target="_blank" rel="noopener">GitHub 第一坑：换行符自动转换</a></p>
 </li>
